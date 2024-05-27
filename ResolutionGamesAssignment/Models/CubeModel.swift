@@ -54,37 +54,28 @@ extension CubeModel {
         
         anchor.addChild(entity)
         
-        setInitialPosition()
-        
         scene.addAnchor(anchor)        
     }
 }
 
 // MARK: - Private functions
 extension CubeModel {
-    private func setInitialPosition() {
+    func setInitialPosition(position: SIMD3<Float>, relativeToPlane: Entity) {
         switch category {
         case .red:
-            entity.setPosition([0.2, 0.5, 0], relativeTo: nil)
+            entity.setPosition([0, 0, 0], relativeTo: nil)
         case .blue:
-            entity.setPosition([-0.2, 0.5, 0], relativeTo: nil)
+            entity.setPosition([0, 0, 0], relativeTo: nil)
         }
     }
 }
 
 // MARK: - Public functions
 extension CubeModel {
-    func run(action: Action, relativeTo destinationEntity: ModelEntity) {
-        switch action {
-        case .jumpCloser:
-            let x = destinationEntity.position.x - entity.position.x
-            let z = destinationEntity.position.z - entity.position.z
-            entity.applyLinearImpulse([x, 1, z], relativeTo: nil)
-        case .jumpFarAway:
-            let x = entity.position.x - destinationEntity.position.x
-            let z = entity.position.z - destinationEntity.position.z
-            entity.applyLinearImpulse([x, 1, z], relativeTo: nil)
-        }
+    func impulse(from vector: simd_float3) {
+        let magnitude: Float = 1.5
+        let impulse = vector * magnitude
+        entity.applyLinearImpulse(impulse, relativeTo: nil)
     }
     
     func isEqual(to otherEntity: Entity) -> Bool {

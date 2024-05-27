@@ -14,6 +14,7 @@ class ResourceLoader {
     enum Token: String, CaseIterable {
         case cubeRed = "cube1"
         case cubeBlue = "cube2"
+        case sphere = "sphere"
     }
     
     // MARK: - Properties

@@ -21,7 +21,7 @@ struct PlaneModel {
         self.anchor = AnchorEntity(world: anchor.transform)
         self.entity = ModelEntity(
             mesh: MeshResource.generatePlane(width: anchor.planeExtent.width, depth: anchor.planeExtent.height),
-            materials: [UnlitMaterial(color: .white.withAlphaComponent(0.2))]
+            materials: [UnlitMaterial(color: .purple.withAlphaComponent(0.2))]
         )
     }    
 }
@@ -52,5 +52,13 @@ extension PlaneModel {
         } catch {
             print(error.localizedDescription)
         }
+    }
+    
+    mutating func selectPlane() {
+        self.entity.model?.materials = [UnlitMaterial(color: .black.withAlphaComponent(0.2))]
+    }
+    
+    func isEqual(to otherEntity: Entity) -> Bool {
+        return entity.id == otherEntity.id
     }
 }
